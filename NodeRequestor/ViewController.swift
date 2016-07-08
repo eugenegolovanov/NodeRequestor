@@ -34,16 +34,27 @@ class ViewController: UIViewController {
                 guard let data = data else {print("error getting data"); return}
                 do {
                     let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-//                    print("JSON:\(json)")
+                    print("JSON:\(json)")
                     
-
-                    //output of json is array
-                    for todo in json as! [AnyObject] {
-                        if let desc = todo["description"] as? String {
+                    
+                    //If NOT Array
+                    if let desc = json["description"] as? String {
+                        print("JSON is NOT Array")
                             print("DESCRIPT: \(desc)")
+                    }
+                    
+                    //If ARRAY
+                    if let todoArray = json as? [AnyObject] {
+                        print("JSON is ARRAY")
+
+                        for todo in todoArray  {
+                            if let desc = todo["description"] as? String {
+                                print("DESCRIPT: \(desc)")
+                            }
                         }
                     }
 
+                    
                     
                     
                 } catch {
