@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I54-fR-QqC">
-                                <rect key="frame" x="20" y="214" width="124" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I54-fR-QqC">
+                                <rect key="frame" x="16" y="214" width="124" height="46"/>
                                 <color key="backgroundColor" red="0.36862745098039218" green="0.5490196078431373" blue="0.023529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="124" id="Fw4-DJ-z8r"/>
@@ -28,15 +28,21 @@
                                 <state key="normal" title="GET /todos/:id">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="getTodosById:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w5n-mr-gRW"/>
+                                </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0eU-XU-M1T">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="0eU-XU-M1T">
                                 <rect key="frame" x="146" y="222" width="160" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hVc-tx-uVG"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="getTodosIdSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="yC0-Xe-vFc"/>
+                                </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLK-2b-gdJ">
-                                <rect key="frame" x="20" y="367" width="124" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLK-2b-gdJ">
+                                <rect key="frame" x="16" y="367" width="124" height="46"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="124" id="BIb-qC-CJc"/>
@@ -46,14 +52,17 @@
                                     <color key="titleColor" red="0.29993428960000001" green="1" blue="0.1399678439" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="yRl-Wv-Zjk">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="yRl-Wv-Zjk">
                                 <rect key="frame" x="146" y="375" width="160" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="BYP-3q-Jmj"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="delTodosIdSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="csO-gD-0bt"/>
+                                </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AQ-D6-gUZ">
-                                <rect key="frame" x="20" y="290" width="124" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AQ-D6-gUZ">
+                                <rect key="frame" x="16" y="290" width="124" height="46"/>
                                 <color key="backgroundColor" red="0.61596047070000004" green="0.53477735420000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="Ona-PA-mte"/>
@@ -63,14 +72,17 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="o8R-Mu-eEC">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="o8R-Mu-eEC">
                                 <rect key="frame" x="146" y="298" width="160" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="El0-mI-Teb"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="putTodosIdSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="B1f-nV-v7X"/>
+                                </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjE-1p-ni8">
-                                <rect key="frame" x="20" y="135" width="124" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjE-1p-ni8">
+                                <rect key="frame" x="16" y="135" width="124" height="46"/>
                                 <color key="backgroundColor" red="0.36862745099999999" green="0.54901960780000003" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="YSU-EZ-a5T"/>
@@ -99,21 +111,11 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="requestAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YHg-Jx-RjS"/>
+                                    <action selector="getAllTodos:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xI-yj-GeQ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gog-Cr-cWH">
-                                <rect key="frame" x="278" y="239" width="42" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="VDj-gR-SKZ"/>
-                                    <constraint firstAttribute="height" constant="21" id="hx0-oT-eVs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSa-9r-D3a">
-                                <rect key="frame" x="278" y="315" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSa-9r-D3a">
+                                <rect key="frame" x="282" y="315" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="JMG-5W-Q9s"/>
                                     <constraint firstAttribute="width" constant="42" id="y1K-fs-pfp"/>
@@ -122,11 +124,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAf-A1-b3j">
-                                <rect key="frame" x="278" y="392" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAf-A1-b3j">
+                                <rect key="frame" x="282" y="392" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="Bb0-H8-l7m"/>
                                     <constraint firstAttribute="height" constant="21" id="ftV-Ar-aum"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gog-Cr-cWH">
+                                <rect key="frame" x="282" y="239" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="VDj-gR-SKZ"/>
+                                    <constraint firstAttribute="height" constant="21" id="hx0-oT-eVs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -165,6 +177,14 @@
                             <constraint firstItem="jjE-1p-ni8" firstAttribute="top" secondItem="gKu-AQ-bcE" secondAttribute="bottom" constant="51" id="yx5-jk-l4o"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="delTodosIdLabel" destination="FAf-A1-b3j" id="sH6-tg-lE1"/>
+                        <outlet property="delTodosIdSlider" destination="yRl-Wv-Zjk" id="DcR-80-un2"/>
+                        <outlet property="getTodosIdLabel" destination="Gog-Cr-cWH" id="mLX-gI-t1J"/>
+                        <outlet property="getTodosIdSlider" destination="0eU-XU-M1T" id="z8x-Iw-r5m"/>
+                        <outlet property="putTodosIdLabel" destination="WSa-9r-D3a" id="z8N-KQ-FXI"/>
+                        <outlet property="putTodosIdSlider" destination="o8R-Mu-eEC" id="PNg-Wb-elM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

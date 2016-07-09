@@ -10,13 +10,37 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //----------------------------------------------------------------------------------------
+    //MARK: - Properties
+    
+    //Sliders
+    @IBOutlet weak var getTodosIdSlider: UISlider!
+    @IBOutlet weak var putTodosIdSlider: UISlider!
+    @IBOutlet weak var delTodosIdSlider: UISlider!
+    
+    //Labels
+    @IBOutlet weak var getTodosIdLabel: UILabel!
+    @IBOutlet weak var putTodosIdLabel: UILabel!
+    @IBOutlet weak var delTodosIdLabel: UILabel!
+    
+
+    
+    //----------------------------------------------------------------------------------------
+    //MARK: - View Lifecycle
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
+    
+    
+    //----------------------------------------------------------------------------------------
+    //MARK: - Request Actions
 
-    @IBAction func requestAction(sender: UIButton) {
+
+    @IBAction func getAllTodos(sender: UIButton) {
         
         let urlPath: String = "https://egtodo.herokuapp.com/todos"
         let url = NSURL(string: urlPath)
@@ -34,7 +58,7 @@ class ViewController: UIViewController {
                 guard let data = data else {print("error getting data"); return}
                 do {
                     let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                    print("JSON:\(json)")
+//                    print("JSON:\(json)")
                     
                     
                     //If NOT Array
@@ -64,11 +88,34 @@ class ViewController: UIViewController {
         }
         task.resume();
     }
+    
+    
+    
+    @IBAction func getTodosById(sender: UIButton) {
+        guard let id = Int(getTodosIdLabel.text!) else {
+            print("error getting id for getTodosById")
+            return
+        }
+        
+        print("Got ID:\(id)")
+
+    }
 
     
     
-    
-    
+    //----------------------------------------------------------------------------------------
+    //MARK: - Slider Actions
+
+    @IBAction func getTodosIdSliderAction(sender: UISlider) {
+        getTodosIdLabel.text = "\(Int(round(sender.value)))"
+    }
+    @IBAction func putTodosIdSliderAction(sender: UISlider) {
+        putTodosIdLabel.text = "\(Int(round(sender.value)))"
+    }
+    @IBAction func delTodosIdSliderAction(sender: UISlider) {
+        delTodosIdLabel.text = "\(Int(round(sender.value)))"
+    }
+
     
     
     
