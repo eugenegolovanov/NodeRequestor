@@ -15,16 +15,20 @@ class ViewController: UIViewController {
     
     //Sliders
     @IBOutlet weak var getTodosIdSlider: UISlider!
-    @IBOutlet weak var putTodosIdSlider: UISlider!
     @IBOutlet weak var delTodosIdSlider: UISlider!
     
     //Labels
     @IBOutlet weak var getTodosIdLabel: UILabel!
-    @IBOutlet weak var putTodosIdLabel: UILabel!
     @IBOutlet weak var delTodosIdLabel: UILabel!
     
-
+    //Query field
+    @IBOutlet weak var queryField: UITextField!
     
+    //Put
+    @IBOutlet weak var putDescriptionField: UITextField!
+    
+    //Post
+    @IBOutlet weak var postDescriptionField: UITextField!
     //----------------------------------------------------------------------------------------
     //MARK: - View Lifecycle
     
@@ -72,8 +76,10 @@ class ViewController: UIViewController {
                         print("JSON is ARRAY")
 
                         for todo in todoArray  {
-                            if let desc = todo["description"] as? String {
-                                print("DESCRIPT: \(desc)")
+                            if let desc = todo["description"] as? String,
+                            let id = todo["id"] as? Int {
+                                print("-----------------------------------")
+                                print("id:\(id)  DESCRIPT: \(desc)")
                             }
                         }
                     }
@@ -92,15 +98,186 @@ class ViewController: UIViewController {
     
     
     @IBAction func getTodosById(sender: UIButton) {
+        
         guard let id = Int(getTodosIdLabel.text!) else {
             print("error getting id for getTodosById")
             return
         }
+        print("\nGot ID:\(id)")
         
-        print("Got ID:\(id)")
+        
+        let urlPath: String = "https://egtodo.herokuapp.com/todos/\(id)"
+        let url = NSURL(string: urlPath)
+        let request = NSMutableURLRequest(URL: url!);
+        request.HTTPMethod = "GET"
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data:NSData?, response:NSURLResponse?, error:NSError?) in
+            
+            //in case of error
+            if error != nil {
+                print("shit err")
+                return
+            } else {
+                guard let data = data else {print("error getting data"); return}
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                    //                    print("JSON:\(json)")
+                    
+                    
+                    //If NOT Array
+                    if let desc = json["description"] as? String,
+                    let id = json["id"] as? Int {
+                        print("-----------------------------------")
+                        print("id:\(id)  DESCRIPT: \(desc)")
+                    }
+                    
+                    
+                } catch {
+                    print("Could not find todo\nERROR:\(error)")
+                }
+            }
+        }
+        task.resume();
+    }
+
+    
+    
+    
+    @IBAction func getTodosByQuery(sender: UIButton) {
+        
+        guard let queryString = self.queryField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) else {
+            print("Could not get query from queryField")
+            return
+        }
+        
+        if queryString == "" {
+            print("Text Field is empty")
+            return
+        } else {
+            print("GOT TEXT:\(queryString)")
+        
+            let urlPath: String = "https://egtodo.herokuapp.com/todos" + "?q=" + queryString
+            let url = NSURL(string: urlPath)
+            let request = NSMutableURLRequest(URL: url!);
+            request.HTTPMethod = "GET"
+            
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+                (data:NSData?, response:NSURLResponse?, error:NSError?) in
+                
+                //in case of error
+                if error != nil {
+                    print("shit err")
+                    return
+                } else {
+                    guard let data = data else {print("error getting data"); return}
+                    do {
+                        let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                        //                    print("JSON:\(json)")
+                        
+                        
+                        //If NOT Array
+                        if let desc = json["description"] as? String {
+                            print("JSON is NOT Array")
+                            print("DESCRIPT: \(desc)")
+                        }
+                        
+                        //If ARRAY
+                        if let todoArray = json as? [AnyObject] {
+                            print("JSON is ARRAY")
+                            
+                            for todo in todoArray  {
+                                if let desc = todo["description"] as? String,
+                                    let id = todo["id"] as? Int {
+                                    print("-----------------------------------")
+                                    print("id:\(id)  DESCRIPT: \(desc)")
+                                }
+                            }
+                        }
+                        
+                        
+                        
+                        
+                    } catch {
+                        print("ERROR:\(error)")
+                    }
+                }
+            }
+            task.resume();
+        }
+
+    
+    }
+    
+    
+    
+    
+    
+    
+    @IBAction func postTodoButtonPressed(sender: UIButton) {
+        
+        guard let postString = self.postDescriptionField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) else {
+            print("Could not get query from postDescriptionField")
+            return
+        }
+        
+        if postString == "" {
+            print("POST Text Field is empty")
+            return
+        } else {
+            print("POST TEXT:\(postString)")
+        }
+        let paramsDictionary = ["description":postString,"completed":"true"]
+        
+        //POST
+        self.postRequest(paramsDictionary) { (data, response, error) in
+            if error == nil {
+                print("RESPONSE:\(response)")
+            } else {
+                print("post ERR:\(error)")
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    func postRequest(params:Dictionary<String, String>, completion: (data: NSData?, response:NSURLResponse?, error:NSError?) -> Void) {
+        let urlPath: String = "https://egtodo.herokuapp.com/todos"
+        let url = NSURL(string: urlPath)
+        let request = NSMutableURLRequest(URL: url!);
+        request.HTTPMethod = "POST"
+        
+        let session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        // Verify downloading data is allowed
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
+        } catch let error as NSError {
+            print("Error in request post: \(error)")
+            request.HTTPBody = nil
+        } catch {
+            print("Catch all error: \(error)")
+        }
+        
+        
+        
+        // Post the data
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            completion(data: data, response: response, error: error)
+        }
+        
+        task.resume()
 
     }
 
+    
+    
+    
     
     
     //----------------------------------------------------------------------------------------
@@ -108,9 +285,6 @@ class ViewController: UIViewController {
 
     @IBAction func getTodosIdSliderAction(sender: UISlider) {
         getTodosIdLabel.text = "\(Int(round(sender.value)))"
-    }
-    @IBAction func putTodosIdSliderAction(sender: UISlider) {
-        putTodosIdLabel.text = "\(Int(round(sender.value)))"
     }
     @IBAction func delTodosIdSliderAction(sender: UISlider) {
         delTodosIdLabel.text = "\(Int(round(sender.value)))"
