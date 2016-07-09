@@ -40,6 +40,9 @@
                                 <state key="normal" title="DEL /todos/:id">
                                     <color key="titleColor" red="0.29993428960000001" green="1" blue="0.1399678439" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="delTodosById:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wGb-BZ-ed6"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="yRl-Wv-Zjk">
                                 <rect key="frame" x="146" y="375" width="160" height="31"/>

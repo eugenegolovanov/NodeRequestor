@@ -278,6 +278,48 @@ class ViewController: UIViewController {
     
     
     
+    @IBAction func delTodosById(sender: UIButton) {
+        guard let id = Int(delTodosIdLabel.text!) else {
+            print("error getting id for delTodosById")
+            return
+        }
+        print("\nGot ID:\(id)")
+        
+        
+        let urlPath: String = "https://egtodo.herokuapp.com/todos/\(id)"
+        let url = NSURL(string: urlPath)
+        let request = NSMutableURLRequest(URL: url!);
+        request.HTTPMethod = "DELETE"
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data:NSData?, response:NSURLResponse?, error:NSError?) in
+            
+            //in case of error
+            if error != nil {
+                print("delete err")
+                return
+            } else {
+//                guard let data = data else {print("error getting data"); return}
+//                guard let response = response else {print("error getting response"); return}
+                
+                if let response = response as? NSHTTPURLResponse {
+                    if response.statusCode == 404 {
+                        print("Error in response:\(response)")
+                        
+                    } else {
+                        print("DELETED Successfully DATA:\(data)")
+                        print("response:\(response)")
+                    }
+                    
+                }
+                
+
+            }
+        }
+        task.resume();
+    }
+    
+    
     
     
     //----------------------------------------------------------------------------------------
