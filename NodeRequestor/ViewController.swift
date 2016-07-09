@@ -232,9 +232,9 @@ class ViewController: UIViewController {
         //POST
         self.postRequest(paramsDictionary) { (data, response, error) in
             if error == nil {
-                print("RESPONSE:\(response)")
+                print("PORT RESPONSE:\(response)")
             } else {
-                print("post ERR:\(error)")
+                print("POST ERR:\(error)")
             }
         }
     }
@@ -249,10 +249,8 @@ class ViewController: UIViewController {
         let url = NSURL(string: urlPath)
         let request = NSMutableURLRequest(URL: url!);
         request.HTTPMethod = "POST"
-        
-        let session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        let session = NSURLSession.sharedSession()
         
         // Verify downloading data is allowed
         do {
@@ -319,6 +317,80 @@ class ViewController: UIViewController {
         task.resume();
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @IBAction func putTodosById(sender: UIButton) {
+        
+        
+        guard let putString = self.putDescriptionField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) else {
+            print("Could not get query from putDescriptionField")
+            return
+        }
+        
+        if putString == "" {
+            print("PUT Text Field is empty")
+            return
+        } else {
+            print("PUT TEXT:\(putString)")
+        }
+        let paramsDictionary = ["description":putString,"completed":"true"]
+
+        
+        let id = 4
+        
+        
+        //PUT
+        self.putRequest(id: id, params: paramsDictionary) { (data, response, error) in
+            if error == nil {
+                print("PUT RESPONSE:\(response)")
+            } else {
+                print("PUT ERR:\(error)")
+            }
+        }
+
+        
+    }
+
+    
+    
+    
+    
+    func putRequest(id id:Int, params:Dictionary<String, String>, completion: (data: NSData?, response:NSURLResponse?, error:NSError?) -> Void) {
+        let urlPath: String = "https://egtodo.herokuapp.com/todos/" + "\(id)"
+        let url = NSURL(string: urlPath)
+        let request = NSMutableURLRequest(URL: url!);
+        request.HTTPMethod = "PUT"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        let session = NSURLSession.sharedSession()
+        
+        // Verify downloading data is allowed
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions())
+        } catch let error as NSError {
+            print("Error in request post: \(error)")
+            request.HTTPBody = nil
+        } catch {
+            print("Catch all error: \(error)")
+        }
+        
+        
+        
+        // Post the data
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            completion(data: data, response: response, error: error)
+        }
+        
+        task.resume()
+        
+    }
+
     
     
     

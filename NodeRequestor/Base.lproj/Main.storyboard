@@ -56,6 +56,9 @@
                                 <state key="normal" title="PUT /todos/:id">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="putTodosById:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ffi-GX-L3T"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjE-1p-ni8">
                                 <rect key="frame" x="16" y="135" width="124" height="46"/>
